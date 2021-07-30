@@ -11,7 +11,7 @@ Database stores:
 * Information about `department` - name.  
 
 ER model:  
-![Cant load](/home/kagire/IdeaProjects/department-app/documentation/resources/ER_model.png "ER model")
+![Cant load](./resources/ER_model.png "ER model")
 
 #### User interface
 
@@ -19,8 +19,8 @@ App contains a view model to provide all information and edit possibilities to u
 * `employee` - CRUD operations and view exact one;
 * `department` - CRUD operations.
 
-Mock employee page (edit form):
-![Cant load](/home/kagire/IdeaProjects/department-app/documentation/resources/mock_employee_page.png "Mock employee form")
+Mock employee page (edit form):  
+![Cant load](./resources/mock_employee_page.png "Mock employee form")
 
 [Static html prototypes](html_prototype)
 
