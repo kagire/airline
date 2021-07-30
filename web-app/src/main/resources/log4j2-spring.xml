@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%style{%d{ISO8601}} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{1.}}{bright,yellow}: %msg%n%throwable" disableAnsi="false" />
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <!-- every till INFO console -->
+        <Root level="info">
+            <AppenderRef ref="Console" />
+        </Root>
+
+        <!-- everything till TRACE logger -->
+        <Logger name="kagire" level="trace"/>
+    </Loggers>
+
+</Configuration>
