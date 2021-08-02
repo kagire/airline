@@ -17,8 +17,7 @@ public class Employee {
     @Column(name = "department_id")
     private long departmentId;
 
-    public Employee(long id, String name, Date dateOfBirth, int salary, long departmentId) {
-        this.id = id;
+    public Employee(String name, Date dateOfBirth, int salary, long departmentId) {
         this.name = name;
         this.dateOfBirth = dateOfBirth;
         this.salary = salary;

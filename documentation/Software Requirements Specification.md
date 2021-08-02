@@ -22,6 +22,7 @@ App contains a view model to provide all information and edit possibilities to u
 Mock employee page (edit form):  
 ![Cant load](./resources/mock_employee_page.png "Mock employee form")
 
+
 [Static html prototypes](html_prototype)
 
 ### Environment
