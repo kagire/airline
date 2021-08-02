@@ -31,10 +31,10 @@ class EmployeeTest {
 
     @Test
     public void equalsTest(){
-        Employee employee = new Employee("", new Date(), 1,1);
+        Employee employee = new Employee("", new Date(1), 1,1);
         assert employee.equals(employee);
         Assertions.assertFalse(employee.equals(new Object()));
-        Employee employee1 = new Employee("", new Date(), 1,1);
+        Employee employee1 = new Employee("", new Date(1), 1,1);
         Assertions.assertTrue(employee.equals(employee1));
 
     }

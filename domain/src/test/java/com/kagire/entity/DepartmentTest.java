@@ -1,6 +1,5 @@
 package com.kagire.entity;
 
-import org.assertj.core.error.ShouldHaveSameHashCode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

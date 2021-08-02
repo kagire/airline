@@ -14,7 +14,6 @@ import org.springframework.test.context.ContextConfiguration;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(classes = DepartmentServiceImpl.class)

@@ -2,8 +2,6 @@ package com.kagire;
 
 import com.kagire.config.MockTestConfig;
 import com.kagire.entity.Employee;
-import com.kagire.entity.Employee;
-import com.kagire.exceptions.EmployeeNotFoundException;
 import com.kagire.exceptions.EmployeeNotFoundException;
 import com.kagire.repository.EmployeeRepository;
 import org.junit.jupiter.api.Assertions;
