@@ -58,7 +58,6 @@ class DepartmentServiceImplMockTest {
         Assertions.assertThrows(DepartmentNotFoundException.class, () -> departmentService.delete(Mockito.anyLong()));
 
         when(departmentRepository.findById(any())).thenReturn(Optional.of(new Department("")));
-        when(departmentRepository.findById(any())).thenReturn(Optional.of(new Department("")));
         Assertions.assertDoesNotThrow(() -> departmentService.delete((long)1));
     }
 
