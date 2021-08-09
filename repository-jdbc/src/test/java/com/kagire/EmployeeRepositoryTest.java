@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Date;
@@ -20,6 +21,7 @@ import java.util.Optional;
 @DataJpaTest
 @ContextConfiguration(classes = {DbConfig.class, TestConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.AUTO_CONFIGURED)
+@ActiveProfiles(profiles = "test")
 class EmployeeRepositoryTest {
 
     Logger logger = LoggerFactory.getLogger(EmployeeDaoJdbc.class);

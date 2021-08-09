@@ -14,6 +14,14 @@ git clone https://github.com/kagire/department-app.git
 cd department-app
 ```
 
+#### Test app
+
+Test can be run without installed postgres. For launching, use:  
+
+```
+mvn clean test
+```
+
 #### Build app
 
 ```
@@ -23,7 +31,9 @@ mvn clean install -DskipTests
 #### Run app
 
 Application uses Spring Boot embedded Tomcat server, so it can be launched without installing any
-new packages, maven will do it by itself.
+new packages, maven will do it by itself.  
+
+App uses postgres for storing data, so you can get it and use model from [Data model description](documentation/Data%20model%20decription.md)  
 
 ```
 java -jar ./web-app/target/web-app-1.0.jar
@@ -33,4 +43,4 @@ java -jar ./web-app/target/web-app-1.0.jar
 
 #### Use
 
-Application available at `localhost:8080`, h2 database at `localhost:8080/h2-console`
+Application available at `localhost:8080`
