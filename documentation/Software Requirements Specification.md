@@ -1,69 +1,130 @@
 # Department app
 
-This is a simple multi-module maven app for managing people at some company or organisation.
+### Purpose
 
-### Description
+This document is about a simple multi-module maven app for managing people at some company or organisation.
 
-#### Model
+### Document conventions
 
-Database stores:
-* Information about `employee` - name, birthdate, salary, related department;
-* Information about `department` - name.  
+This document uses the following conventions:
 
-ER model:  
-![Cant load](./resources/ER_model.png "ER model")
+* DB or db - database
+* ER - entity relationship
+* HR - human resources
 
-#### User interface
+### Project scope
 
-App contains a view model to provide all information and edit possibilities to user. User able to:  
-* `employee` - CRUD operations and view exact one;
-* `department` - CRUD operations.
+The purpose of department app is to create employee management system for company or organisation with user-friendly interface. Project contains 2 database profiles: for production stage and in-memory for develop stage.
 
-Mock employee page (edit form):  
-![Cant load](./resources/mock_employee_page.png "Mock employee form")
-
+### References
 
 [Static html prototypes](html_prototype)
 
-### Environment
+## Description
 
-Requirements:
-* **h2 embedded database** (no need to install) and/or **postgres db**
-* OS-independent launch - only **java** required
-* **Maven 3.6.3** and **jdk 11** to build (install)
+This app is independent product, that means it's not a version or extension of smth.
 
-### Instruction
+### Product perspective
 
-Follow steps below to run it (machine need to stick to requirements above).
+A database stores information about employees and departments they belong to. This information is only used for people who working with this app to manage employee.
 
-#### Build app
+### User class and characteristics
 
-```shell
- mvn clean install -DskipTests
-```
+Users of the system should be able to retrieve information about departments and employees that belong to any department. No profiles/authority needed because of locality of the system. User should be able to do:
 
-#### Run app
+* Employee:
+  * Create new
+  * View and edit exact one
+  * View list of all entities
+  * Delete
 
-Application uses Spring Boot embedded Tomcat server, so it can be launched without installing any 
-new packages, maven will do it by itself.
+* Department:
+  * Create new
+  * View and edit exact one
+  * View list of all entities
+  * View related employees
+  * Delete
 
-```shell
-java -jar ./web-app/target/web-app-1.0.jar
-```
+### Operating environment
 
-Notes:
-* app launches only from web module only on this and some other stage.
-* use `^C` to stop app (`ctrl + C` or `cmd + C`).
-* project was developed and build on Ubuntu OS.
+Operating environment for the app:
 
-#### Use
+* Operating system: Linux/Windows/Mac OS X
+* Database: PostgreSQL
+* Platform: Java
+* Tool: Maven
 
-Application available at `localhost:8080`, h2 database at `localhost:8080/h2-console`
+### Design and implementation constraints
 
+1. SQL commands for data model
+2. REST and Web modules to launch
 
+### Assumption dependencies
 
+Restrictions about versions of tools:
 
+* Maven - 3.6.3 or above
+* Guice (included in Maven) - not recommended to use version below 5.x
+* jdk 11 or above
 
+## System features
 
+### Description and priority
 
+The department app maintains information on departments and what it contains and helps HR managers not to do their job at paper. This project has medium priority because it's useful but job still can be done without it.
 
+### Functional requirements
+
+* Its required to set up address for database and user/password attributes to connect, especially if database located not on machine where app is launched
+* You need to add new exception responses and handlers if adding new functionality
+
+Modules in this app:
+
+* department-app (root)
+* web-app
+* domain
+* service
+* service-impl
+* db
+* repository
+* repository-jdbc
+
+## Data requirements
+
+### Entity overview
+
+Database stores:
+* Information about `employee` - name, birthdate, salary, related department
+* Information about `department` - name
+
+### Data model
+Here is ER model:  
+![Cant load](./resources/ER_model.png "ER model")
+
+## External interface requirements:
+
+### User interfaces
+
+* front-end software: html Thymeleaf
+* back-end software: Java
+
+### Hardware interfaces
+
+* Ubuntu
+* Browser
+
+### Software interfaces
+
+* Operating system: Ubuntu, but launch is OS independent
+* Database: postgreSQL, h2 for dev-stage
+* Thymeleaf - for front-end view
+
+### Communication interfaces
+
+This project supports all types of web browsers. We are using simple electronic forms for the lookup and editing, etc.
+
+## Nonfunctional requirements
+
+### Safety requirements
+
+U need to have recovery method in case your database or machine damaged to prevent data loss. Possible solutions: do backup manually, do scheduled backup (for example daily), do logs.
