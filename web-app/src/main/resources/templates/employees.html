@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Employees</title>
 </head>
 <body>
+
+<a href="./..">Go back</a>
 
 <h3>Employees</h3>
 
@@ -14,24 +16,26 @@
         <th>Id</th>
         <th>Name</th>
         <th>Department</th>
+        <th>Salary</th>
         <th>Birthdate</th>
         <th></th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>12341</td>
-        <td>Employee name</td>
-        <td>First</td>
-        <td>1998-08-12</td>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.id}"></td>
+        <td th:text="${employee.name}"></td>
+        <td th:text="${employee.departmentId}"></td>
+        <td th:text="${employee.salary}"></td>
+        <td th:text="${#dates.format(employee.dateOfBirth, 'yyyy-MM-dd')}"></td>
         <td>
-            <a href="employee.html" title="Edit employee"><span>Edit</span></a>
-            <a href="employees.html" title="Delete employee"><span>Delete</span></a>
+            <a th:href="@{|/employees/${employee.id}|}" title="Edit employee"><span>Edit</span></a>
+            <a th:href="@{|/employees/${employee.id}/delete|}" title="Delete employee"><span>Delete</span></a>
         </td>
     </tr>
     </tbody>
 </table>
-<form action="new_employee.html">
+<form method="get" th:action="@{|/employees/new|}">
     <input type="submit" value="New employee" />
 </form>
 </body>

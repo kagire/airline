@@ -45,4 +45,9 @@ public class EmployeeDaoJdbc implements EmployeeDao{
     public Long count() {
         return employeeRepository.count();
     }
+
+    @Override
+    public List<Employee> findByDepartmentId(Integer departmentId) {
+        return employeeRepository.findByDepartmentId(departmentId);
+    }
 }

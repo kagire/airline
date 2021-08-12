@@ -1,28 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Department</title>
 </head>
 <body>
 
+<a href="./..">Go back</a>
+
 <h3>Department</h3>
 
-<form>
-    <label>Id: 7743294320923</label>
+<form action="." th:object="${department}" th:action="@{${#httpServletRequest.servletPath}}" th:method="@{post}">
+
+    <label for="department_id">Id: </label>
+    <label id="department_id" th:field="*{id}" th:text="${department.id}"></label>
     <br>
 
     <label for="department_name">Name</label>
-    <input id="department_name" value="First" />
+    <input required id="department_name" th:field="*{name}"  />
     <br>
 
     <button type="submit">Submit</button>
 </form>
-<button onclick="">Delete</button>
 
-<h4>Department`s dedicated employees:</h4>
+<form th:if="${isDeletable} eq 'true'" method="get" th:action="@{|/departments/${department.id}/delete|}">
+    <button type="submit">Delete</button>
+</form>
+<label th:if="${isDeletable} eq 'false'">Can't be deleted, still related employees remain</label>
 
-<table>
+
+<h4 th:if="${isDeletable} eq 'false'">Department`s dedicated employees:</h4>
+
+<table th:if="${isDeletable} eq 'false'">
     <thead>
     <tr>
         <th>Id</th>
@@ -32,17 +41,18 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>12341</td>
-        <td>Employee name</td>
-        <td>1998-08-12</td>
+    <tr th:each="employee : ${relatedEmployees}">
+        <td th:text="${employee.id}"></td>
+        <td th:text="${employee.name}"></td>
+        <td th:text="${#dates.format(employee.dateOfBirth, 'dd-MM-yyyy')}"></td>
         <td>
-            <a href="employee.html" title="Edit employee"><span>Edit</span></a>
-            <a href="employees.html" title="Delete employee"><span>Delete</span></a>
+            <a href="employee.html" title="Edit employee" th:href="@{|/employees/${employee.id}|}"><span>Edit</span></a>
+            <a href="employees.html" title="Delete employee" th:href="@{|/employees/${employee.id}/delete|}"><span>Delete</span></a>
         </td>
     </tr>
     </tbody>
 </table>
+
 
 </body>
 </html>

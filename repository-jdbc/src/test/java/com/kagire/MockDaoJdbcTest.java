@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Date;
 import java.util.Optional;
@@ -17,6 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(classes = {DepartmentDaoJdbc.class, EmployeeDaoJdbc.class})
+@ActiveProfiles("test")
 class MockDaoJdbcTest {
 
     @MockBean
@@ -26,21 +28,21 @@ class MockDaoJdbcTest {
     EmployeeRepository employeeRepository;
 
     @Autowired
-    DepartmentDaoJdbc departmentDaoJdbc;
+    DepartmentDao departmentDao;
 
     @Autowired
-    EmployeeDaoJdbc employeeDaoJdbc;
+    EmployeeDao employeeDao;
 
     @Test
     void findAllShouldBeEmpty() {
-        Assertions.assertTrue(departmentDaoJdbc.findAll().isEmpty());
-        Assertions.assertTrue(employeeDaoJdbc.findAll().isEmpty());
+        Assertions.assertTrue(departmentDao.findAll().isEmpty());
+        Assertions.assertTrue(employeeDao.findAll().isEmpty());
     }
 
     @Test
     void findByIdShouldBeEmpty() {
-        Assertions.assertFalse(departmentDaoJdbc.findById((long)0).isPresent());
-        Assertions.assertFalse(employeeDaoJdbc.findById((long)0).isPresent());
+        Assertions.assertFalse(departmentDao.findById((long)0).isPresent());
+        Assertions.assertFalse(employeeDao.findById((long)0).isPresent());
     }
 
     @Test
@@ -48,8 +50,8 @@ class MockDaoJdbcTest {
         when(departmentRepository.save(any())).thenReturn(new Department("a"));
         when(employeeRepository.save(any())).thenReturn(new Employee("a", new Date(1), 1, 1));
 
-        Assertions.assertEquals(0, departmentDaoJdbc.create(any()));
-        Assertions.assertEquals(0, employeeDaoJdbc.create(any()));
+        Assertions.assertEquals(0, departmentDao.create(any()));
+        Assertions.assertEquals(0, employeeDao.create(any()));
     }
 
     @Test
@@ -59,8 +61,8 @@ class MockDaoJdbcTest {
         when(employeeRepository.save(any())).thenReturn(new Employee("a", new Date(1), 1, 1));
         when(employeeRepository.findById(any())).thenReturn(Optional.of(new Employee("a", new Date(1), 1, 1)));
 
-        Assertions.assertNotNull(departmentDaoJdbc.update(new Department("")));
-        Assertions.assertNotNull(employeeDaoJdbc.update(new Employee("a", new Date(1), 1, 1)));
+        Assertions.assertNotNull(departmentDao.update(new Department("")));
+        Assertions.assertNotNull(employeeDao.update(new Employee("a", new Date(1), 1, 1)));
     }
 
     @Test
@@ -68,13 +70,13 @@ class MockDaoJdbcTest {
         when(departmentRepository.findById(any())).thenReturn(Optional.of(new Department("")));
         when(employeeRepository.findById(any())).thenReturn(Optional.of(new Employee("a", new Date(1), 1, 1)));
 
-        Assertions.assertDoesNotThrow(() -> departmentDaoJdbc.delete((long)1));
-        Assertions.assertDoesNotThrow(() -> employeeDaoJdbc.delete((long)1));
+        Assertions.assertDoesNotThrow(() -> departmentDao.delete((long)1));
+        Assertions.assertDoesNotThrow(() -> employeeDao.delete((long)1));
     }
 
     @Test
     void countShouldNotBeNull() {
-        Assertions.assertNotNull(departmentDaoJdbc.count());
-        Assertions.assertNotNull(employeeDaoJdbc.count());
+        Assertions.assertNotNull(departmentDao.count());
+        Assertions.assertNotNull(employeeDao.count());
     }
 }

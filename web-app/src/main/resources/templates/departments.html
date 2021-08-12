@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Departments</title>
 </head>
 <body>
+
+<a href="./..">Go back</a>
 
 <h3>Departments</h3>
 
@@ -17,17 +19,17 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>7743294320923</td>
-    <td>Department`s name</td>
+  <tr th:each="department : ${departments}">
+    <td th:text="${department.id}"></td>
+    <td th:text="${department.name}"></td>
     <td>
-      <a href="department.html" title="Edit department"><span>Edit</span></a>
-      <a href="departments.html" title="Delete department"><span>Delete</span></a>
+      <a th:href="@{|/departments/${department.id}|}" title="Edit department"><span>Edit</span></a>
+      <!--<a th:href="@{|/departments/${department.id}/delete|}" title="Delete department"><span>Delete</span></a>-->
     </td>
   </tr>
   </tbody>
 </table>
-<form action="new_department.html">
+<form method="get" th:action="@{|/departments/new|}">
   <input type="submit" value="New department" />
 </form>
 </body>

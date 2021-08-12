@@ -1,7 +1,9 @@
 package com.kagire;
 
 import com.kagire.config.TestConfig;
+import com.kagire.entity.Department;
 import com.kagire.entity.Employee;
+import com.kagire.repository.DepartmentRepository;
 import com.kagire.repository.EmployeeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,30 +21,20 @@ import java.util.Date;
 import java.util.Optional;
 
 @DataJpaTest
-@ContextConfiguration(classes = {DbConfig.class, TestConfig.class})
+@ContextConfiguration(classes = {TestConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.AUTO_CONFIGURED)
 @ActiveProfiles(profiles = "test")
 class EmployeeRepositoryTest {
 
-    Logger logger = LoggerFactory.getLogger(EmployeeDaoJdbc.class);
-
     @Autowired
-    private TestEntityManager entityManager;
+    DepartmentRepository departmentRepository;
 
     @Autowired
     EmployeeRepository employeeRepository;
 
-    @BeforeEach
-    public void initiateBeforeEachTest(){
-        entityManager.persist(new Employee("One", new Date(1), 1, 1));
-        employeeRepository.save(new Employee("Two", new Date(2), 2, 2));
-    }
-
     @Test
     void findAllShouldReturnInitiatedEntities() {
-        Assertions.assertEquals(2, employeeRepository.findAll().size());
-        for(Employee employee : employeeRepository.findAll())
-            logger.info(employee.toString());
+        Assertions.assertFalse(employeeRepository.findAll().isEmpty());
     }
 
     @Test
@@ -55,19 +47,30 @@ class EmployeeRepositoryTest {
 
     @Test
     void createShouldAddNewEntity() {
+        long size = employeeRepository.count();
         employeeRepository.save(new Employee("Three", new Date(3), 3, 3));
-        Assertions.assertEquals(3, employeeRepository.findAll().size());
+        Assertions.assertEquals(size + 1, employeeRepository.findAll().size());
     }
 
     @Test
-    void deleteShouldDeleteAllEntitiesOneByOneInCycle() {
+    void deleteShouldDeleteAllEntitiesOneByOneInCycleAndDatabaseBeEmpty() {
         for(Employee employee : employeeRepository.findAll())
             employeeRepository.delete(employee);
+        for(Department department : departmentRepository.findAll())
+            departmentRepository.delete(department);
+        Assertions.assertTrue(departmentRepository.findAll().isEmpty());
         Assertions.assertTrue(employeeRepository.findAll().isEmpty());
     }
 
     @Test
     void countShouldBeEqualsToTestInitiateSet() {
-        Assertions.assertEquals(2, employeeRepository.count());
+        Assertions.assertEquals(employeeRepository.findAll().size(), employeeRepository.count());
+    }
+
+    @Test
+    void findByDepartmentIdShouldReturnRelated(){
+        Department department = departmentRepository.save(new Department("WHAT"));
+        Employee employee = employeeRepository.save(new Employee("Three", new Date(3), 3, department.getId()));
+        Assertions.assertEquals(1, employeeRepository.findByDepartmentId((int)department.getId()).size());
     }
 }

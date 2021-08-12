@@ -17,6 +17,7 @@
         <module>db</module>
         <module>repository</module>
         <module>repository-jdbc</module>
+        <module>rest</module>
 
     </modules>
 
@@ -117,6 +118,12 @@
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
                 <version>42.2.23</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>7.12.1</version>
             </dependency>
 
             <!-- testing -->

@@ -1,5 +1,7 @@
 package com.kagire.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -11,11 +13,14 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     @Column(name = "date_of_birth")
     private Date dateOfBirth;
     private int salary;
     @Column(name = "department_id")
     private long departmentId;
+
+    public Employee() {}
 
     public Employee(String name, Date dateOfBirth, int salary, long departmentId) {
         this.name = name;

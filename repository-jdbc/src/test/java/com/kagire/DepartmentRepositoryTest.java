@@ -7,6 +7,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,30 +20,17 @@ import org.springframework.test.context.ContextConfiguration;
 import java.util.Optional;
 
 @DataJpaTest
-@ContextConfiguration(classes = {DbConfig.class, TestConfig.class})
+@ContextConfiguration(classes = {TestConfig.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.AUTO_CONFIGURED)
 @ActiveProfiles(profiles = "test")
 class DepartmentRepositoryTest {
 
-    Logger logger = LoggerFactory.getLogger(DepartmentDaoJdbc.class);
-
-    @Autowired
-    private TestEntityManager entityManager;
-
     @Autowired
     DepartmentRepository departmentRepository;
 
-    @BeforeEach
-    public void initiateBeforeEachTest(){
-        entityManager.persist(new Department("One"));
-        departmentRepository.save(new Department("Two"));
-    }
-
     @Test
     void findAllShouldReturnInitiatedEntities() {
-        Assertions.assertEquals(2, departmentRepository.findAll().size());
-        for(Department department : departmentRepository.findAll())
-            logger.info(department.toString());
+        Assertions.assertFalse(departmentRepository.findAll().isEmpty());
     }
 
     @Test
@@ -55,19 +43,13 @@ class DepartmentRepositoryTest {
 
     @Test
     void createShouldAddNewEntity() {
-        departmentRepository.save(new Department("Three"));
-        Assertions.assertEquals(3, departmentRepository.findAll().size());
-    }
-
-    @Test
-    void deleteShouldDeleteAllEntitiesOneByOneInCycle() {
-        for(Department department : departmentRepository.findAll())
-            departmentRepository.delete(department);
-        Assertions.assertTrue(departmentRepository.findAll().isEmpty());
+        long size = departmentRepository.count();
+        departmentRepository.save(new Department("WHAT"));
+        Assertions.assertEquals(size + 1, departmentRepository.findAll().size());
     }
 
     @Test
     void countShouldBeEqualsToTestInitiateSet() {
-        Assertions.assertEquals(2, departmentRepository.count());
+        Assertions.assertEquals(departmentRepository.findAll().size(), departmentRepository.count());
     }
 }

@@ -17,4 +17,6 @@ public interface EmployeeService {
     void delete(Long employeeId);
 
     Long count();
+
+    List<Employee> findByDepartmentId(Integer departmentId);
 }

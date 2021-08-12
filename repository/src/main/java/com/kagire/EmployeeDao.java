@@ -18,4 +18,6 @@ public interface EmployeeDao {
     void delete(Long employeeId);
 
     Long count();
+
+    List<Employee> findByDepartmentId(Integer departmentId);
 }

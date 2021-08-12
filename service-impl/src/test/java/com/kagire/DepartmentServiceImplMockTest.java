@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Optional;
@@ -18,13 +19,14 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(classes = DepartmentServiceImpl.class)
 @ContextConfiguration(classes = MockTestConfig.class)
+@ActiveProfiles("test")
 class DepartmentServiceImplMockTest {
 
     @Autowired
     DepartmentRepository departmentRepository;
 
     @Autowired
-    DepartmentServiceImpl departmentService;
+    DepartmentService departmentService;
 
     @Test
     void findAllShouldReturnEmptyList() {

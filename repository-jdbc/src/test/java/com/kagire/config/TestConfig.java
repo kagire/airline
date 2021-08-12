@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EntityScan(basePackages = "com.kagire")
 @EnableJpaRepositories(basePackages = "com.kagire")
-@PropertySource({"classpath:db.properties"})
-@Import({DepartmentDaoJdbc.class, DepartmentDaoJdbc.class})
 public class TestConfig {
 
 }

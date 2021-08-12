@@ -12,4 +12,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
     @Query(value = "SELECT * FROM employee ORDER BY id", nativeQuery = true)
     List<Employee> findAll();
+
+    @Query(value = "SELECT * FROM employee WHERE department_id = ?1 ORDER BY id", nativeQuery = true)
+    List<Employee> findByDepartmentId(Integer departmentId);
 }

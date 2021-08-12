@@ -1,40 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Employee</title>
 </head>
 <body>
 
-<h3>Employee</h3>
+<a href="./..">Go back</a>
 
-<form>
+    <h3>Employee</h3>
 
-    <label>Id: 12341</label>
-    <br>
+    <form action="." th:object="${employee}" th:action="@{${#httpServletRequest.servletPath}}" th:method="@{post}">
 
-    <label for="employee_name">Name</label>
-    <input id="employee_name" value="Employee name"/>
-    <br>
+        <label for="employee_id">Id: </label>
+        <label id="employee_id" th:field="*{id}" th:text="${employee.id}"></label>
+        <br>
 
-    <label for="employee_department_id">Department</label>
-    <select id="employee_department_id">
-        <option value="Pilot">First</option>
-        <option value="Radio operator">Second</option>
-        <option value="Stewardess">Third</option>
-    </select>
-    <br>
+        <label for="employee_name">Name</label>
+        <input required id="employee_name" th:field="*{name}"  />
+        <br>
 
-    <label for="employee_salary">Salary:</label>
-    <input id="employee_salary" type="number" value="220">
-    <br>
+        <label for="employee_department_id">Department</label>
+        <select required id="employee_department_id" th:field="*{departmentId}">
+            <option th:each="department : ${availableDepartments}" th:value="${department.id}"
+                    th:text="${department.name}" th:selected="*{departmentId}">
+            </option>
+        </select>
+        <br>
 
-    <label for="employee_role">Birthdate:</label>
-    <input id="employee_role" type="date" value="1998-08-12">
-    <br>
+        <label for="employee_salary">Salary:</label>
+        <input required id="employee_salary" type="number" min="200" th:field="*{salary}">
+        <br>
 
-    <button type="submit">Submit</button>
-</form>
-<button onclick="">Delete</button>
+        <label for="employee_date_of_birth">Birthdate:</label>
+        <input required id="employee_date_of_birth" type="date" th:field="*{dateOfBirth}" th:value="${#dates.format(employee.dateOfBirth, 'yyyy-MM-dd')}">
+        <br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <form method="get" th:action="@{|/employees/${employee.id}/delete|}">
+        <button type="submit">Delete</button>
+    </form>
 </body>
 </html>
