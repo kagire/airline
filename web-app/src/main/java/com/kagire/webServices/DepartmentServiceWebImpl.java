@@ -24,7 +24,7 @@ public class DepartmentServiceWebImpl implements DepartmentService {
     @Override
     public List<Department> findAll() {
         ResponseEntity<List<Department>> responseEntity = restTemplate
-                .exchange(URL, HttpMethod.GET, null, new ParameterizedTypeReference<>(){});
+                .exchange(URL, HttpMethod.GET, null, new ParameterizedTypeReference<List<Department>>(){});
         return responseEntity.getBody();
     }
 

@@ -35,6 +35,14 @@ new packages, maven will do it by itself.
 
 App uses postgres for storing data, so you can get it and use model from [Data model description](documentation/Data%20model%20decription.md)  
 
+To run rest app:  
+
+```
+java -jar ./rest/target/rest-1.0.jar
+```
+
+To run web app (_Note: rest app should be already launched_):  
+
 ```
 java -jar ./web-app/target/web-app-1.0.jar
 ```
@@ -43,4 +51,10 @@ java -jar ./web-app/target/web-app-1.0.jar
 
 #### Use
 
-Application available at `localhost:8080`
+Application available at `localhost:8080`  
+
+To access REST using CURL:  
+
+```
+curl localhost:8081/departments
+```

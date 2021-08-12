@@ -23,7 +23,7 @@ public class EmployeeServiceWebImpl implements EmployeeService {
     @Override
     public List<Employee> findAll() {
         ResponseEntity<List<Employee>> responseEntity = restTemplate
-                .exchange(URL, HttpMethod.GET, null, new ParameterizedTypeReference<>(){});
+                .exchange(URL, HttpMethod.GET, null, new ParameterizedTypeReference<List<Employee>>(){});
         return responseEntity.getBody();
     }
 
@@ -64,7 +64,7 @@ public class EmployeeServiceWebImpl implements EmployeeService {
     @Override
     public List<Employee> findByDepartmentId(Integer departmentId) {
         ResponseEntity<List<Employee>> responseEntity = restTemplate
-                .exchange(URL + "/dedicated/" + departmentId, HttpMethod.GET, null, new ParameterizedTypeReference<>(){});
+                .exchange(URL + "/dedicated/" + departmentId, HttpMethod.GET, null, new ParameterizedTypeReference<List<Employee>>(){});
         return responseEntity.getBody();
     }
 }

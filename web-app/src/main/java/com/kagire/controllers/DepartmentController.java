@@ -2,15 +2,15 @@ package com.kagire.controllers;
 
 import com.kagire.DepartmentService;
 import com.kagire.EmployeeService;
-import com.kagire.entity.Employee;
-import com.kagire.webServices.DepartmentServiceWebImpl;
 import com.kagire.entity.Department;
+import com.kagire.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
