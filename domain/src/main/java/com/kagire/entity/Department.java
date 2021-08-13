@@ -49,9 +49,9 @@ public class Department {
 
     @Override
     public String toString() {
-        return "Department{" +
-                "id=" + this.id +
-                ", name='" + this.name + '\'' +
+        return "{" +
+                "\"id\":" + this.id +
+                ", \"name\":\"" + this.name + '\"' +
                 '}';
     }
 

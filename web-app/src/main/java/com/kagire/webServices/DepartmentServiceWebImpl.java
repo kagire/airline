@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class DepartmentServiceWebImpl implements DepartmentService {
 
-    private final String URL = String.format("%s://%s:%d/departments", "http", "localhost", 8081);
+    private final static String URL = String.format("%s://%s:%d/departments", "http", "localhost", 8081);
 
     private final RestTemplate restTemplate;
 

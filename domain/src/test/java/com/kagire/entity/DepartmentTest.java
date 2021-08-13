@@ -16,6 +16,10 @@ class DepartmentTest {
 
         Assertions.assertEquals(1, department.getId());
         Assertions.assertEquals("One", department.getName());
+
+        department = new Department();
+        Assertions.assertEquals(0, department.getId());
+        Assertions.assertNull(department.getName());
     }
 
     @Test
@@ -30,7 +34,7 @@ class DepartmentTest {
 
     @Test
     public void toStringTest(){
-        Assertions.assertEquals("Department{" + "id=" + 0 + ", name='" + '\'' + '}', new Department("").toString());
+        Assertions.assertEquals("{\"id\":0, \"name\":\"\"}", new Department("").toString());
     }
 
     @Test

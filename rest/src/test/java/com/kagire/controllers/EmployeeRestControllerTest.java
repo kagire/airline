@@ -7,6 +7,7 @@ import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
@@ -44,19 +45,29 @@ class EmployeeRestControllerTest {
     }
 
     @Test
-    void newEmployeeShouldThrowBadRequest() throws Exception {
-        when(employeeService.create(ArgumentMatchers.any())).thenReturn(0L);
+    void newEmployeeShouldReturnBadRequestWhenEmptyButMotWhenFilled() throws Exception {
         this.mvc.perform(post("/employees"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string(""));
+
+        this.mvc.perform(post("/employees")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new Employee("name", new Date(1), 1, 1).toString()))
+                .andExpect(status().isCreated());
     }
 
     @Test
-    void updateEmployeeShouldThrowBadRequest() throws Exception {
+    void updateEmployeeShouldThrowBadRequestWhenEmptyButMotWhenFilled() throws Exception {
         when(employeeService.update(ArgumentMatchers.any())).thenReturn(0L);
         this.mvc.perform(put("/employees"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string(""));
+
+        this.mvc.perform(put("/employees")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new Employee("name", new Date(1), 1, 1).toString()))
+                .andExpect(status().isOk())
+                .andExpect(content().string("0"));
     }
 
     @Test
@@ -75,10 +86,8 @@ class EmployeeRestControllerTest {
 
     @Test
     void dedicatedEmployeesShouldBeEmpty() throws Exception {
-        when(employeeService.findByDepartmentId(ArgumentMatchers.anyInt())).thenReturn(new ArrayList<>());
-        this.mvc.perform(get("/employees"))
+        this.mvc.perform(get("/employees/dedicated/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("[]"));
-
     }
 }

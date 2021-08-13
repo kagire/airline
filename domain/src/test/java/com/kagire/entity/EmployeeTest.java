@@ -27,6 +27,13 @@ class EmployeeTest {
         Assertions.assertEquals(new Date(1), employee.getDateOfBirth());
         Assertions.assertEquals(9, employee.getSalary());
         Assertions.assertEquals(1, employee.getDepartmentId());
+
+        employee = new Employee();
+        Assertions.assertEquals(0, employee.getId());
+        Assertions.assertNull(employee.getName());
+        Assertions.assertNull(employee.getDateOfBirth());
+        Assertions.assertEquals(0, employee.getSalary());
+        Assertions.assertEquals(0, employee.getDepartmentId());
     }
 
     @Test
@@ -41,13 +48,8 @@ class EmployeeTest {
 
     @Test
     public void toStringTest(){
-        Assertions.assertEquals("Employee{" +
-                "id=" + 0 +
-                ", name='"  + '\'' +
-                ", dateOfBirth='" + new Date(1) + '\'' +
-                ", salary=" + 1 +
-                ", departmentId=" + 1 +
-                '}', new Employee("", new Date(1), 1,1).toString());
+        Assertions.assertEquals("{\"id\":0, \"name\":\"\", \"dateOfBirth\":\"1970-01-01T03:00:00\"," +
+                " \"salary\":1, \"departmentId\":1}", new Employee("", new Date(1), 1,1).toString());
     }
 
     @Test

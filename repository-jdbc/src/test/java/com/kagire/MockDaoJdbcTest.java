@@ -79,4 +79,9 @@ class MockDaoJdbcTest {
         Assertions.assertNotNull(departmentDao.count());
         Assertions.assertNotNull(employeeDao.count());
     }
+
+    @Test
+    void findByDepartmentIdShould(){
+        Assertions.assertNotNull(employeeDao.findByDepartmentId(1));
+    }
 }

@@ -3,6 +3,8 @@ package com.kagire.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -91,12 +93,14 @@ public class Employee {
     }
 
     public String toString() {
-        return "Employee{" +
-                "id=" + this.id +
-                ", name='" + this.name + '\'' +
-                ", dateOfBirth='" + this.dateOfBirth + '\'' +
-                ", salary=" + this.salary +
-                ", departmentId=" + this.departmentId +
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        String strDate = dateFormat.format(this.dateOfBirth);
+        return "{" +
+                "\"id\":" + this.id +
+                ", \"name\":\"" + this.name + "\"" +
+                ", \"dateOfBirth\":\"" + strDate + "\"" +
+                ", \"salary\":" + this.salary +
+                ", \"departmentId\":" + this.departmentId +
                 '}';
     }
 
