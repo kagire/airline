@@ -40,7 +40,7 @@ class DepartmentRestControllerTest {
         when(departmentService.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(new Department("new")));
         this.mvc.perform(get("/departments/1"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("{\"id\":0,\"name\":\"new\"}"));
+                .andExpect(content().string("{\"id\":0,\"name\":\"new\",\"employeeCount\":0}"));
     }
 
     @Test

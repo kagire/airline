@@ -4,6 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/kagire/department-app/badge.svg?branch=main)](https://coveralls.io/github/kagire/department-app?branch=main)
 
 [to Software requirements specification](documentation/Software%20Requirements%20Specification.md)  
+[Generate REST client instruction](documentation/Generate%20REST%20client%20instruction.md)  
 [to project presentation](documentation/presentation/Department_app.pdf)
 
 #### Used technologies

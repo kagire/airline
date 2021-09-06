@@ -10,12 +10,15 @@ class DepartmentTest {
         Department department = new Department("Two");
 
         Assertions.assertEquals("Two", department.getName());
+        Assertions.assertEquals(0, department.getEmployeeCount());
 
         department.setId(1);
         department.setName("One");
+        department.setEmployeeCount(1);
 
         Assertions.assertEquals(1, department.getId());
         Assertions.assertEquals("One", department.getName());
+        Assertions.assertEquals(1, department.getEmployeeCount());
 
         department = new Department();
         Assertions.assertEquals(0, department.getId());
@@ -29,7 +32,6 @@ class DepartmentTest {
         Assertions.assertFalse(department.equals(new Object()));
         Department department1 = new Department("");
         Assertions.assertTrue(department.equals(department1));
-
     }
 
     @Test

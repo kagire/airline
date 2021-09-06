@@ -9,11 +9,16 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
+    @Column(name = "employee_count")
+    private int employeeCount;
 
-    public Department() {}
+    public Department() {
+        this.employeeCount = 0;
+    }
 
     public Department(String name) {
         this.name = name;
+        this.employeeCount = 0;
     }
 
     public long getId() {
@@ -30,6 +35,14 @@ public class Department {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setEmployeeCount(int employeeCount){
+        this.employeeCount = employeeCount;
+    }
+
+    public int getEmployeeCount(){
+        return this.employeeCount;
     }
 
     public void cloneData(Department department){

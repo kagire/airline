@@ -5,7 +5,8 @@ DROP TABLE IF EXISTS department;
 CREATE TABLE department
 (
     id bigint AUTO_INCREMENT  PRIMARY KEY,
-    name VARCHAR NOT NULL
+    name VARCHAR NOT NULL,
+    employee_count int NOT NULL DEFAULT 0
 );
 
 CREATE TABLE employee

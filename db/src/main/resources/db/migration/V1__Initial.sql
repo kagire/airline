@@ -6,6 +6,7 @@ CREATE TABLE public.department
 (
     id bigint NOT NULL GENERATED ALWAYS AS IDENTITY (INCREMENT 1 START 1 MINVALUE 1),
     name character varying COLLATE pg_catalog."default" NOT NULL,
+    employee_count integer NOT NULL DEFAULT 0,
     CONSTRAINT department_pkey PRIMARY KEY (id)
 );
 
@@ -20,6 +21,19 @@ CREATE TABLE public.employee
     CONSTRAINT department_id_fk FOREIGN KEY (department_id)
     REFERENCES public.department (id) MATCH SIMPLE
 );
+
+CREATE OR REPLACE FUNCTION count_employees_in_each_department() RETURNS TRIGGER AS
+$$
+    BEGIN
+            UPDATE public.department SET employee_count = (SELECT COUNT(id) FROM public.employee WHERE department_id = NEW.department_id) WHERE id = NEW.department_id;
+
+            RETURN NEW;
+    END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_employee_count_in_department AFTER INSERT OR UPDATE ON public.employee
+  FOR EACH ROW
+  EXECUTE PROCEDURE count_employees_in_each_department();
 
 INSERT INTO public.department (name) VALUES ('first'),('second'),('third');
 
