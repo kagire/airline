@@ -18,6 +18,7 @@
         <module>repository</module>
         <module>repository-jdbc</module>
         <module>rest</module>
+        <module>additional-services</module>
 
     </modules>
 
@@ -169,6 +170,26 @@
                 <groupId>com.puppycrawl.tools</groupId>
                 <artifactId>checkstyle</artifactId>
                 <version>8.44</version>
+            </dependency>
+
+            <!-- mailing -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-mail</artifactId>
+                <version>2.5.3</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-freemarker</artifactId>
+                <version>2.5.3</version>
+            </dependency>
+
+            <!-- excel sheet -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>3.9</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

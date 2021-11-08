@@ -25,3 +25,5 @@
 */target/*
 coveralls.*
 .travis.yml
+/react-app/node_modules/
+/react-app/public/

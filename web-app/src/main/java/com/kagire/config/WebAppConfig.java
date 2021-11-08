@@ -4,6 +4,7 @@ import com.kagire.DepartmentService;
 import com.kagire.EmployeeService;
 import com.kagire.webServices.DepartmentServiceWebImpl;
 import com.kagire.webServices.EmployeeServiceWebImpl;
+import com.kagire.webServices.MailServiceWeb;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
@@ -32,5 +33,10 @@ public class WebAppConfig {
     @Bean
     EmployeeService employeeService(){
         return new EmployeeServiceWebImpl(restTemplate());
+    }
+
+    @Bean
+    MailServiceWeb mailServiceWeb(){
+        return new MailServiceWeb(restTemplate());
     }
 }

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Get info email</title>
+</head>
+<body>
+
+<a href="./..">Go back</a>
+
+<h3>Get email with department-app database backup file and info</h3>
+<form action="." th:object="${email}" th:action="@{${#httpServletRequest.servletPath}}" th:method="@{post}">
+
+    <label for="email">Send to email: </label>
+    <input required id="email" name="email" th:value="${email}" />
+    <br>
+
+    <button type="submit" >Submit</button>
+</form>
+</body>
+</html>
