@@ -1,6 +1,6 @@
 package com.kagire.controllers;
 
-import com.kagire.webServices.MailServiceWeb;
+import com.kagire.webServices.MailServiceWebImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HomeController {
 
     @Autowired
-    MailServiceWeb mailServiceWeb;
+    MailServiceWebImpl mailServiceWebImpl;
 
     @GetMapping(value = "/")
     public String defaultPageRedirect() {
@@ -27,7 +27,7 @@ public class HomeController {
 
     @PostMapping(value = "mail/info")
     public String sendInfoToEmail(@RequestParam String email) {
-        mailServiceWeb.sendInfoEmail(email);
-        return "home";
+        mailServiceWebImpl.sendInfoEmail(email);
+        return "redirect:/";
     }
 }

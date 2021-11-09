@@ -10,7 +10,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 
 @Service
-public class MailService {
+public class MailServiceImpl implements  MailService{
 
     @Autowired
     private DepartmentService departmentService;
@@ -23,11 +23,12 @@ public class MailService {
 
     private final JavaMailSender javaMailSender;
 
-    public MailService(JavaMailSender javaMailSender) {
+    public MailServiceImpl(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendInfoEmail(String addressEmail){
+    @Override
+    public void sendInfoEmail(String emailAddress){
         StringBuilder emailContent = new StringBuilder();
         // System.lineSeparator() not working for some reason
         emailContent.append("Here is department-app info table:")
@@ -43,7 +44,7 @@ public class MailService {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
             helper.setSubject("Department-app info");
-            helper.setTo(addressEmail);
+            helper.setTo(emailAddress);
             helper.setText(emailContent.toString(), true);
             helper.addAttachment("database-backup.xlsx",
                     spreadsheetService.workbookToFile(spreadsheetService.createInfoWorkbook()));
