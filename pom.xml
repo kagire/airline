@@ -191,6 +191,13 @@
                 <artifactId>poi-ooxml</artifactId>
                 <version>3.9</version>
             </dependency>
+
+            <!-- annotation processing -->
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>0.10.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

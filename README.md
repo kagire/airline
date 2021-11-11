@@ -5,7 +5,8 @@
 
 [to Software requirements specification](documentation/Software%20Requirements%20Specification.md)  
 [Generate REST client instruction](documentation/Generate%20REST%20client%20instruction.md)  
-[to project presentation](documentation/presentation/Department_app.pdf)
+[to project presentation](documentation/presentation/Department_app.pdf)  
+[to InjectSql annotation readme](documentation/InjectSql%20annotation%20description.md)  
 
 #### Used technologies
 
