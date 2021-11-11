@@ -47,9 +47,9 @@ public class MailServiceImpl implements  MailService{
             helper.setTo(emailAddress);
             helper.setText(emailContent.toString(), true);
             helper.addAttachment("database-backup.xlsx",
-                    spreadsheetService.workbookToFile(spreadsheetService.createInfoWorkbook()));
+                    spreadsheetService.workbookToFile(spreadsheetService.exportDatabaseToWorkbook()));
             javaMailSender.send(mimeMessage);
-        } catch (MessagingException | IOException ex){
+        } catch (RuntimeException | MessagingException | IOException ex){
             ex.printStackTrace();
         }
     }

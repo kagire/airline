@@ -78,6 +78,10 @@ public class Employee {
         this.salary = employee.getSalary();
     }
 
+    public String stringDate(){
+        return this.getDateOfBirth().toString().substring(0,10);
+    }
+
     @Override
     public boolean equals(Object obj) {
 

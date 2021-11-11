@@ -8,8 +8,12 @@ Created in order to inject value from sql stored in files
 
 Applicable to **fields** only
 
-### Use
+### Use  
 
+Requirement:  
+- Class with annotated field must contain `@Component` or derived annotation or be proceeded to bean by spring in any way.
+
+Setup:
 1) Create SLQ file in **resources** folder of the project
 2) Annotate class fields with `@InjectSql` annotation
 3) Provide path value using classpath (for example: `"classpath:findAll.sql"`)  

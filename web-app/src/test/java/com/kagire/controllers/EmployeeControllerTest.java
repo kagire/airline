@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -146,7 +147,7 @@ class EmployeeControllerTest {
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/employees/new")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new Employee("name", new Date(1), 1, 1).toString()))
+                        .content(new Employee("name", new SimpleDateFormat("yyyy-MM-dd").parse("2001-01-12"), 1, 1).toString()))
                 .andExpect(status().isFound());
         mockServer.verify();
     }
@@ -161,7 +162,7 @@ class EmployeeControllerTest {
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/employees/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new Employee("name", new Date(1), 1, 1).toString()))
+                        .content(new Employee("name", new SimpleDateFormat("yyyy-MM-dd").parse("2001-01-12"), 1, 1).toString()))
                 .andExpect(status().isFound());
         mockServer.verify();
     }
