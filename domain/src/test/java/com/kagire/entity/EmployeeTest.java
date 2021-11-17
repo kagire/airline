@@ -15,6 +15,7 @@ class EmployeeTest {
         Assertions.assertEquals("Two", employee.getName());
         Assertions.assertEquals(2, employee.getSalary());
         Assertions.assertEquals(2, employee.getDepartmentId());
+        Assertions.assertEquals(new Date().toString().substring(0,10), employee.stringDate());
 
         employee.setId(1);
         employee.setName("One");

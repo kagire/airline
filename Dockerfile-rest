@@ -1,0 +1,4 @@
+FROM adoptopenjdk:11-jre-hotspot
+COPY rest/target/rest-1.0.jar rest.jar
+EXPOSE 8081
+ENTRYPOINT ["java", "-jar", "rest.jar"]

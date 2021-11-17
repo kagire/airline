@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  department-app-rest:
+    image: 'department-app-rest'
+    build:
+      context: ""
+      dockerfile: Dockerfile-rest
+    container_name: rest
+    restart: always
+    ports:
+      - "8081:8081"
+    volumes:
+      - /department-app-rest
+    depends_on:
+      - department-app-db
+    environment:
+      - POSTGRES_HOST=db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://department-app-db:5432/department-app
+    networks:
+      - api-network
+
+  department-app-db:
+    image: 'postgres:13'
+    container_name: db
+    ports:
+      - "5431:5432"
+    volumes:
+      - /var/lib/postgresql/data/pgdata
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=department-app
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    networks:
+      - api-network
+
+  department-app-web:
+    image: 'department-app-web'
+    build:
+      context: ""
+      dockerfile: Dockerfile-web
+    container_name: web
+    ports:
+      - "8080:8080"
+    volumes:
+      - /department-app-web
+    depends_on:
+      - department-app-rest
+    networks:
+      - api-network
+
+networks:
+  api-network:
+    driver: bridge

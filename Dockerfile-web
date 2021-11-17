@@ -1,0 +1,4 @@
+FROM adoptopenjdk:11-jre-hotspot
+COPY web-app/target/web-app-1.0.jar web.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "web.jar"]
