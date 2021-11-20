@@ -1,18 +1,35 @@
 package com.kagire.webServices;
 
 import com.kagire.EmployeeService;
+import com.kagire.config.PropertiesLoader;
 import com.kagire.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
 
 public class EmployeeServiceWebImpl implements EmployeeService {
 
-    private final static String URL = String.format("%s://%s:%d/employees", "http", "localhost", 8081);
+    static Properties configuration;
+
+    static {
+        try {
+            configuration = PropertiesLoader.loadProperties("application.properties");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static String localAddress = configuration.getProperty("host.address");
+
+    private final static String URL = String.format("%s://%s:%d/employees", "http", localAddress, 8081);
 
     private final RestTemplate restTemplate;
     @Autowired
