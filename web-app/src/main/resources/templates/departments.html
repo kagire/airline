@@ -20,7 +20,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr th:each="department : ${departments}">
+  <tr th:each="department, iStat : ${departmentsPage.content}">
     <td th:text="${department.id}"></td>
     <td th:text="${department.name}"></td>
     <td th:text="${department.employeeCount}"></td>
@@ -31,6 +31,14 @@
   </tr>
   </tbody>
 </table>
+
+<div th:if="${departmentsPage.totalPages > 1}" class="pagination"
+     th:each="pageNumber : ${pageNumbers}">
+  <a th:href="@{/departments(page=${pageNumber})}"
+     th:text=${pageNumber}
+     th:class="${pageNumber==departmentsPage.number + 1} ? active"></a>
+</div>
+
 <form method="get" th:action="@{|/departments/new|}">
   <input type="submit" value="New department" />
 </form>

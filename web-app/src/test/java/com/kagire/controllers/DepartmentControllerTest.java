@@ -66,18 +66,7 @@ class DepartmentControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
-                .andExpect(view().name("departments"))
-                .andExpect(model().attribute("departments", hasItem(
-                        allOf(
-                                hasProperty("id", is((long)0)),
-                                hasProperty("name", is("1"))
-                        )
-                ))).andExpect(model().attribute("departments", hasItem(
-                        allOf(
-                                hasProperty("id", is((long)0)),
-                                hasProperty("name", is("2"))
-                        )
-                )));
+                .andExpect(view().name("departments"));
         mockServer.verify();
     }
 

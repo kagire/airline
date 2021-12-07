@@ -3,6 +3,8 @@ package com.kagire;
 import com.kagire.entity.Department;
 import com.kagire.exceptions.DepartmentNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +23,11 @@ public class DepartmentServiceImpl implements DepartmentService{
     @Override
     public List<Department> findAll() {
         return departmentDao.findAll();
+    }
+
+    @Override
+    public Page<Department> findPaginated(Pageable pageable) {
+        return null;
     }
 
     @Override

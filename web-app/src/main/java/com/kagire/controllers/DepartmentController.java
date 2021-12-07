@@ -5,14 +5,16 @@ import com.kagire.EmployeeService;
 import com.kagire.entity.Department;
 import com.kagire.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("departments")
@@ -25,8 +27,21 @@ public class DepartmentController {
     EmployeeService employeeService;
     
     @GetMapping
-    public final String departmentsPage(Model model) {
-        model.addAttribute("departments", departmentService.findAll());
+    public final String departmentsPage(Model model, @RequestParam("page") Optional<Integer> page) {
+        int currentPage = page.orElse(1);
+        int pageSize = 3;
+
+        Page<Department> listPage = departmentService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        
+        model.addAttribute("departmentsPage", listPage);
+
+        int totalPages = listPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
         return "departments";
     }
 

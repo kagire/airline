@@ -4,13 +4,16 @@ import com.kagire.DepartmentService;
 import com.kagire.config.PropertiesLoader;
 import com.kagire.entity.Department;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
@@ -43,6 +46,25 @@ public class DepartmentServiceWebImpl implements DepartmentService {
         ResponseEntity<List<Department>> responseEntity = restTemplate
                 .exchange(URL, HttpMethod.GET, null, new ParameterizedTypeReference<List<Department>>(){});
         return responseEntity.getBody();
+    }
+
+    @Override
+    public Page<Department> findPaginated(Pageable pageable) {
+        int pageSize = pageable.getPageSize();
+        int currentPage = pageable.getPageNumber();
+        int startItem = currentPage * pageSize;
+
+        List<Department> departmentList = findAll();
+        List<Department> list;
+
+        if (departmentList.size() < startItem) {
+            list = Collections.emptyList();
+        } else {
+            int toIndex = Math.min(startItem + pageSize, departmentList.size());
+            list = departmentList.subList(startItem, toIndex);
+        }
+
+        return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), departmentList.size());
     }
 
     @Override
